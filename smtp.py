@@ -1,21 +1,20 @@
-sender = "danielgarciaacosta46@gmail.com"
-receiver = ["brigethedith01@gmail.com"]
 
-message = """From: From Person <danielgarciaacosta46@gmail.com>
-To: To Person <brigethedith01@gmail.com>
-Subject: SMTP e-mail test
+import smtplib
+import os
 
-This is a test e-mail message.
-"""
+# SET THE PARAMETERS OF THE  MSG
+password = os.environ["PSW"]
+sender= "****************@gmail.com"
+receiver = "********@gmail.com"
 
-
-try:
-    import smtplib
-    server = smtplib.SMTP('localhost')
-    server.login('')
-    # server.log('danielgarciaacosta46@gmail.com', 'Ironman.12')
-    # print("connected")
-    # smtpObj.sendmail(sender, receiver, message)
-    print("Sent email")
-except:
-   print("Error: unable to send email")
+# CREATE A SERVER
+def send(passwd, app):
+    # CONNECT TO THE SMTP SERVER|
+    server = smtplib.SMTP('smtp.gmail.com')
+    server.starttls()
+    # LOGIN CREDENTIALS FOR SENDING THE MAIL
+    server.login(sender, 'Ironman.12')
+    message = "The password is {}  and the app name is {}".format(passwd, app)
+    server.sendmail(sender, receiver, message)
+    server.quit()
+    print("Sent email to %s" % (receiver))

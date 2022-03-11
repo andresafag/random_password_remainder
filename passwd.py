@@ -7,24 +7,27 @@ from tkinter import messagebox
 characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
 
 def generate_random_password(userInput):
-    # password tuple
+    # EMPTY PASSWORD
     password=[]
     try:
+        # USER INPUTS A NUMBER AS A STR AND CONVERTS IT INTO AN INTEGER
         userInput = int(userInput)
+        # PASSWORD LENGTH SHOULD BE LONGER THAN 6
         if userInput > 6:
             time.sleep(4)
+            # RANDOMLY CHOSEN PASSWORD
             random.shuffle(characters)
             for character in range(userInput):
                 password.append(random.choice(characters))
-                # print("Almost ready...")
             response = "".join(password)
+            # RETURNING THE PASSWORD LENGTH
             return response
-        elif userInput >= 6:
-            print("Less than 6")
+        elif userInput <= 6:
             return None
     except ValueError:
         print("This is not an integer buddy")
         messagebox.showwarning(message="This is not an integer buddy", title="Not an integer")
+
 
 
 

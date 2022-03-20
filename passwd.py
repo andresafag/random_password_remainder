@@ -6,14 +6,14 @@ from tkinter import messagebox
 # characters to generate password from
 characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
 
-def generate_random_password(userInput):
-    # EMPTY PASSWORD
+def generate_random_password(userInput, program):
+    # EMPTY PASSWORD ARRAY
     password=[]
     try:
         # USER INPUTS A NUMBER AS A STR AND CONVERTS IT INTO AN INTEGER
         userInput = int(userInput)
         # PASSWORD LENGTH SHOULD BE LONGER THAN 6
-        if userInput > 6:
+        if not program.isnumeric() and userInput > 6:
             time.sleep(4)
             # RANDOMLY CHOSEN PASSWORD
             random.shuffle(characters)
@@ -23,51 +23,12 @@ def generate_random_password(userInput):
             # RETURNING THE PASSWORD LENGTH
             return response
         elif userInput <= 6:
+            messagebox.showwarning(message="Enter a number greater than 6", title="Not a string")
             return None
+        else:
+            messagebox.showwarning(message="You are entering a number instead of a string", title="Not a string")
     except ValueError:
         print("This is not an integer buddy")
         messagebox.showwarning(message="This is not an integer buddy", title="Not an integer")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#     if type(userInput) == int:
-#         print("It is an integer...wait till we get you a new password")
-#         time.sleep(4)
-#         random.shuffle(characters)
-#         for character in range(userInput):
-#             password.append(random.choice(characters))
-#         print("".join(password))
-#     elif type(userInput) == str:
-#         integ=int(userInput)
-#         print("It is an integer...wait till we get you a new password")
-#         time.sleep(4)
-#         random.shuffle(characters)
-#         for character in range(integ):
-#             password.append(random.choice(characters))
-#         print("Almost ready")
-#         return "".join(password)
-#     else:
-#         print("You messed it up")
-#
-# # generate_random_password()
+    except:
+        print("Something went wrong")

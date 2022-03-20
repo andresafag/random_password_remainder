@@ -26,3 +26,11 @@ def propasswd(value_1, value_2):
     mycursor.execute(sql, val)
     connect_sql.commit()
     print(mycursor.rowcount, "record inserted.")
+
+# FUNCTION TO RETRIEVE THE PASSWORD OF A PROGRAM
+def search_program(program):
+    mycursor.execute("SELECT password FROM Psswd where program='{}'".format(program))
+    resul=mycursor.fetchone()
+    return resul
+
+# search_program("brigeth")

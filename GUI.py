@@ -1,6 +1,7 @@
 import tkinter as tk
 # IMPORT THE RANDOM PASSWORD ALREADY SETUP
 from passwd import *
+# from notifier import *
 # IMPORT THE DATABASE TO 1 MAKE SURE IT IS CONNECTED AND 2 TO SEND THE VALUES DESIRED
 from dbs import *
 # IMPORT SMTP TO SEND EMAIL NOTIFICATION
@@ -35,22 +36,29 @@ def get_value():
     entry_passwd_value=entry_passwd.get()
     # GET APP VALUE STRING
     entry_name_value=name_entry.get()
-    # CALL THE FUNCTION FROM PASSWD.PY AND PROCESS THE PASSWORD AND APP ENTRIES TO SAVE THEM
-    password_generated=generate_random_password(entry_passwd_value, entry_name_value)
-    if password_generated != None:
-        with open('text_passwd.txt', 'a') as reader:
-            reader.write("Password generated: " + password_generated + " and " + " app: " + entry_name_value + " \n")
-            reader.close()
-        print('Done saving in prueba.txt!!')
-        # CALLING THE FUNCTION FROM DBS TO SAVE THE INFO IN THE DATABASE
-        propasswd(entry_name_value, password_generated)
-        print("Everything went through successfully master Andrés")
-        # FUNCTION CALLED TO SEND PASSWORD THROUGH EMAIL
-        send(password_generated, entry_name_value)
+    if does_exist(entry_name_value) == 0:
+        # CALL THE FUNCTION FROM PASSWD.PY AND PROCESS THE PASSWORD AND APP ENTRIES TO SAVE THEM
+        password_generated=generate_random_password(entry_passwd_value, entry_name_value)
+        if password_generated != None:
+            with open('text_passwd.txt', 'a') as reader:
+                reader.write("Password generated: " + password_generated + " and " + " app: " + entry_name_value + " \n")
+                reader.close()
+            print('Done saving in prueba.txt!!')
+            # CALLING THE FUNCTION FROM DBS TO SAVE THE INFO IN THE DATABASE
+            propasswd(entry_name_value, password_generated)
+            print("Everything went through successfully master Andrés")
+            # FUNCTION CALLED TO SEND PASSWORD THROUGH EMAIL
+            send(password_generated, entry_name_value)
+            entry_passwd_value = ""
+            entry_name_value = ""
+    else:
+        messagebox.showwarning(message="Already exists", title="You just entered an existing program")
 
 # BUTTON TO CALL GET VALUE() FUNCTION
 btn_send=tk.Button(ventana, text="Create random password", command=get_value)
 btn_send.pack()
+
+
 
 retrive_msg_frm=tk.LabelFrame(ventana, text="Info retrieval")
 retrive_msg_frm.pack(ipadx=50, ipady=100)
@@ -82,6 +90,7 @@ def retrieve_passwd():
 
 passwd_retrieval_onclick=tk.Button(retrive_msg_frm, text="Retrieve the password", command=retrieve_passwd)
 passwd_retrieval_onclick.pack()
+
 
 
 

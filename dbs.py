@@ -12,17 +12,20 @@ connect_sql = mysql.connector.connect(
 
 print("connected to mysql successfully to the database")
 
-mycursor = connect_sql.cursor()
+mycursor = connect_sql.cursor(buffered=True)
 
-
+# If user exists return 0
 def does_exist(program):
     try:
         existing_program = mycursor.execute('SELECT exists (SELECT program FROM Psswd WHERE program="%s")' % (program))
         existing_program = mycursor.fetchone()
         # print(res[0])
         return existing_program[0]
-    except:
-        return "error"
+    except errors.ProgrammingError as e:
+        return "error is {}".format(e)
+    connect_sql.close()
+
+
 
 # FUNCTION TO INSERT THE VALUES PASSWORD AND APP IN THE GUI
 def propasswd(value_1, value_2):
@@ -32,13 +35,10 @@ def propasswd(value_1, value_2):
     connect_sql.commit()
     print(mycursor.rowcount, "record inserted.")
     connect_sql.close()
+
+
 # FUNCTION TO RETRIEVE THE PASSWORD OF A PROGRAM
 def search_program(program):
-    mycursor.execute("SELECT password FROM Psswd WHERE program='%s'" % (program))
-    resul=mycursor.fetchone()
-    connect_sql.close()
-    return resul
-
-
-
-# connect_sql.close()
+        mycursor.execute("SELECT password FROM Psswd WHERE program='%s'" % (program))
+        resul=mycursor.fetchone()
+        return resul

@@ -14,7 +14,6 @@ def generate_random_password(userInput, program):
         userInput = int(userInput)
         # PASSWORD LENGTH SHOULD BE LONGER THAN 6
         if not program.isnumeric() and userInput > 6:
-            time.sleep(4)
             # RANDOMLY CHOSEN PASSWORD
             random.shuffle(characters)
             for character in range(userInput):

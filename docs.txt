@@ -1,8 +1,0 @@
-En este proyecto se tratara de hacer una interfaz gŕafica donde el usuario será capaz de 
-crear campos que se definirán como claves de x tarea y se le adjuntará un campo donde
-una vez seleccionado se prudicira una clave aleatoria y saldrá una alerta preguntando si
-se quiere eligir esa clave y el usuario decidirá si no quiera esa generará otra clave.
-Una vez elija la clave se creará un archivo especificando que tareas generaron claves y 
-mostraá las existentes 
-A generar la o las claves la aplicación preguntará por el tiempo en que quiere que se expire la clave.
-Una vez hecho esto la aplicación se encargaá de recordarle al usuario por medio de una notificacion sobre el cambio de contraseña.
